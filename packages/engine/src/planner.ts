@@ -9,6 +9,8 @@ export interface Question {
   options?: readonly string[];
   default?: unknown;
   why: string;
+  /** No answer is required to proceed; the interview can complete while this stays unset. */
+  optional?: boolean;
 }
 
 type PartialReq = Partial<Requirements>;
@@ -77,6 +79,7 @@ export function planQuestions(profile: RepoProfile, partial: PartialReq): Questi
       prompt: "Monthly budget in USD (optional)?",
       type: "number",
       why: "Filters candidates that exceed budget.",
+      optional: true,
     }),
     userRegions: () => ({
       field: "userRegions",
@@ -98,12 +101,14 @@ export function planQuestions(profile: RepoProfile, partial: PartialReq): Questi
       prompt: "Existing deployment (provider, region, monthly cost) — optional.",
       type: "text",
       why: "Baseline for savings comparison.",
+      optional: true,
     }),
     avgRps: () => ({
       field: "avgRps",
       prompt: "Average requests per second (optional)?",
       type: "number",
       why: "Refines cost estimates.",
+      optional: true,
     }),
     dataClasses: () => ({
       field: "dataClasses",

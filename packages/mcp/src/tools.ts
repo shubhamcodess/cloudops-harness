@@ -62,7 +62,7 @@ export function makeTools(store: RunStore, deps: ToolDeps = {}) {
       const rec = store.get(a.runId);
       store.requireStage(rec, "profiled", "next_questions");
       const remaining = planQuestions(rec.profile!, (rec.answers ?? {}) as Partial<Requirements>);
-      return { remaining: remaining.map((q) => ({ id: q.field, prompt: q.prompt, type: q.type, options: q.options, default: q.default, why: q.why })) };
+      return { remaining: remaining.map((q) => ({ id: q.field, prompt: q.prompt, type: q.type, options: q.options, default: q.default, why: q.why, optional: !!q.optional })) };
     },
 
     submit_answers(a: AnswersArgs) {
@@ -71,10 +71,11 @@ export function makeTools(store: RunStore, deps: ToolDeps = {}) {
       const merged = { ...(rec.answers ?? {}), ...(a.answers ?? {}) } as Partial<Requirements>;
       rec.answers = merged;
       const remaining = planQuestions(rec.profile!, merged);
-      if (remaining.length > 0) {
-        store.appendLedger(rec, rec.stage, "submit_answers", { keys: Object.keys(a.answers ?? {}) }, { remaining: remaining.length });
+      const required = remaining.filter((q) => !q.optional);
+      if (required.length > 0) {
+        store.appendLedger(rec, rec.stage, "submit_answers", { keys: Object.keys(a.answers ?? {}) }, { remaining: required.length });
         store.save(rec);
-        return { status: "incomplete", remaining: remaining.map((q) => ({ id: q.field, prompt: q.prompt })) };
+        return { status: "incomplete", remaining: required.map((q) => ({ id: q.field, prompt: q.prompt })) };
       }
       const parsed = applyAnswers({}, merged);
       if (!parsed.ok) throw new Error(`requirements invalid: ${parsed.error}`);
