@@ -1,0 +1,11 @@
+#!/bin/sh
+# Refuse to push commits that credit Claude/Anthropic.
+zero=0000000000000000000000000000000000000000
+while read -r _ local_sha _ remote_sha; do
+  [ "$local_sha" = "$zero" ] && continue
+  range="$local_sha"; [ "$remote_sha" != "$zero" ] && range="$remote_sha..$local_sha"
+  if git log --format=%B%n%an%n%ae "$range" | grep -qiE 'co-authored-by:.*(claude|anthropic)|noreply@anthropic'; then
+    echo "Blocked: commit history credits Claude/Anthropic. Rewrite before pushing."
+    exit 1
+  fi
+done

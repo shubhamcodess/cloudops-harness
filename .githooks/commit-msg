@@ -1,0 +1,3 @@
+#!/bin/sh
+# Strip AI co-author / attribution lines from commit messages.
+sed -i '' -E '/^Co-Authored-By:.*(Claude|Anthropic)/Id; /Generated with .*Claude/Id' "$1"

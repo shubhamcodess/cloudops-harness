@@ -1,0 +1,17 @@
+# private workspace: raw docs, references, speech notes
+.local/
+.claude/
+
+# secrets
+.env
+.env.*
+!.env.example
+
+# tooling
+node_modules/
+dist/
+.venv/
+__pycache__/
+graphify-out/
+.DS_Store
+*.log

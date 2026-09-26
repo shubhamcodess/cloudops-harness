@@ -1,0 +1,17 @@
+#!/bin/sh
+# private-paths: "dir/" matches by prefix, anything else by exact name.
+list="$(dirname "$0")/private-paths"
+bad=""
+for f in $(git diff --cached --name-only --diff-filter=ACMR); do
+  while IFS= read -r p; do
+    case "$p" in ''|'#'*) continue ;; esac
+    case "$p" in
+      */) case "$f" in "$p"*) bad="$bad\n  $f" ;; esac ;;
+      *)  [ "$f" = "$p" ] && bad="$bad\n  $f" ;;
+    esac
+  done < "$list"
+done
+if [ -n "$bad" ]; then
+  printf "Blocked: private files staged:%b\n" "$bad"
+  exit 1
+fi

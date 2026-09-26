@@ -1,0 +1,4 @@
+# Paths that must never be committed. One prefix per line.
+.local/
+.claude/
+.env
