@@ -1,3 +1,5 @@
 #!/bin/sh
 # Strip AI co-author / attribution lines from commit messages.
-sed -i '' -E '/^Co-Authored-By:.*(Claude|Anthropic)/Id; /Generated with .*Claude/Id' "$1"
+# Portable in-place edit (BSD's `sed -i ''` isn't valid GNU sed syntax).
+tmp="$1.tmp.$$"
+sed -E '/^Co-Authored-By:.*(Claude|Anthropic)/Id; /Generated with .*Claude/Id' "$1" > "$tmp" && mv "$tmp" "$1"
