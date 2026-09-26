@@ -1,0 +1,1 @@
+{ "name": "pii-app", "version": "1.0.0", "scripts": { "start": "node server.js" }, "dependencies": { "express": "^4.19.0", "cookie-parser": "^1.4.6", "mongodb": "^6.8.0", "@segment/analytics-node": "^2.1.0", "mixpanel": "^0.18.0" } }

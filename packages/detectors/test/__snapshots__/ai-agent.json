@@ -1,0 +1,101 @@
+{
+  "source": {
+    "kind": "path",
+    "ref": "ai-agent"
+  },
+  "workloadType": "ai-agent",
+  "languages": [
+    "typescript"
+  ],
+  "packageManager": "npm",
+  "services": [
+    {
+      "name": "ai-agent",
+      "path": ".",
+      "language": "typescript",
+      "kind": "ai-agent",
+      "buildCmd": "npm run build",
+      "startCmd": "npm start",
+      "hasDockerfile": false
+    }
+  ],
+  "dockerable": true,
+  "hasDockerfile": false,
+  "hasCompose": false,
+  "hasHelm": false,
+  "hasTerraform": false,
+  "hasK8sManifests": false,
+  "ci": "none",
+  "datastores": [],
+  "ai": {
+    "isAi": true,
+    "frameworks": [
+      "langgraph"
+    ],
+    "modelProviders": [
+      "openai"
+    ],
+    "vectorDbs": [
+      "pinecone"
+    ],
+    "mcpServer": false,
+    "mcpClient": false,
+    "needsSandbox": true
+  },
+  "envVars": [
+    {
+      "name": "OPENAI_API_KEY",
+      "classification": "secret",
+      "file": ".env.example"
+    },
+    {
+      "name": "PINECONE_API_KEY",
+      "classification": "secret",
+      "file": ".env.example"
+    }
+  ],
+  "pii": [],
+  "evidence": [
+    {
+      "rule": "ai-code-exec",
+      "file": "src/agent.ts"
+    },
+    {
+      "rule": "ai-detected",
+      "detail": "langgraph,openai,pinecone"
+    },
+    {
+      "rule": "env-var",
+      "file": ".env.example",
+      "detail": "OPENAI_API_KEY:secret"
+    },
+    {
+      "rule": "env-var",
+      "file": ".env.example",
+      "detail": "PINECONE_API_KEY:secret"
+    },
+    {
+      "rule": "language",
+      "file": "src/agent.ts",
+      "detail": "typescript"
+    },
+    {
+      "rule": "manifest",
+      "file": "package.json"
+    },
+    {
+      "rule": "package-manager",
+      "file": "package.json",
+      "detail": "npm"
+    },
+    {
+      "rule": "service",
+      "file": "package.json",
+      "detail": "ai-agent:ai-agent"
+    },
+    {
+      "rule": "workload:agent-framework",
+      "detail": "ai-agent"
+    }
+  ]
+}

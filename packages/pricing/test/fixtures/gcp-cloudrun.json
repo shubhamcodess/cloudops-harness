@@ -1,0 +1,184 @@
+{
+ "skus": [
+  {
+   "name": "services/152E-C115-5142/skus/02A2-9231-36A6",
+   "skuId": "02A2-9231-36A6",
+   "description": "Services Memory (Request-based billing)",
+   "category": {
+    "serviceDisplayName": "Cloud Run",
+    "resourceFamily": "ApplicationServices",
+    "resourceGroup": "Compute",
+    "usageType": "OnDemand"
+   },
+   "serviceRegions": [
+    "asia-east1",
+    "asia-northeast1",
+    "asia-northeast2",
+    "europe-north1",
+    "europe-north2",
+    "europe-southwest1",
+    "europe-west1",
+    "europe-west4",
+    "europe-west8",
+    "europe-west9",
+    "me-west1",
+    "northamerica-south1",
+    "us-central1",
+    "us-east1",
+    "us-east4",
+    "us-east5",
+    "us-east7",
+    "us-south1",
+    "us-west1",
+    "us-west8",
+    "asia-south1",
+    "asia-southeast3",
+    "africa-south1",
+    "asia-southeast4"
+   ],
+   "pricingInfo": [
+    {
+     "summary": "",
+     "pricingExpression": {
+      "usageUnit": "GiBy.s",
+      "displayQuantity": 1,
+      "tieredRates": [
+       {
+        "startUsageAmount": 0,
+        "unitPrice": {
+         "currencyCode": "USD",
+         "units": "0",
+         "nanos": 2500
+        }
+       }
+      ],
+      "usageUnitDescription": "gibibyte second",
+      "baseUnit": "By.s",
+      "baseUnitDescription": "byte second",
+      "baseUnitConversionFactor": 1073741824
+     },
+     "currencyConversionRate": 1,
+     "effectiveTime": "2026-09-26T07:00:00Z"
+    }
+   ],
+   "serviceProviderName": "Google",
+   "geoTaxonomy": {
+    "type": "GLOBAL",
+    "regions": []
+   }
+  },
+  {
+   "name": "services/152E-C115-5142/skus/17F8-A9EE-378E",
+   "skuId": "17F8-A9EE-378E",
+   "description": "Instances Memory in europe-west1",
+   "category": {
+    "serviceDisplayName": "Cloud Run",
+    "resourceFamily": "ApplicationServices",
+    "resourceGroup": "Compute",
+    "usageType": "OnDemand"
+   },
+   "serviceRegions": [
+    "europe-west1"
+   ],
+   "pricingInfo": [
+    {
+     "summary": "",
+     "pricingExpression": {
+      "usageUnit": "GiBy.s",
+      "displayQuantity": 1,
+      "tieredRates": [
+       {
+        "startUsageAmount": 0,
+        "unitPrice": {
+         "currencyCode": "USD",
+         "units": "0",
+         "nanos": 1930
+        }
+       }
+      ],
+      "usageUnitDescription": "gibibyte second",
+      "baseUnit": "By.s",
+      "baseUnitDescription": "byte second",
+      "baseUnitConversionFactor": 1073741824
+     },
+     "currencyConversionRate": 1,
+     "effectiveTime": "2026-09-26T07:00:00Z"
+    }
+   ],
+   "serviceProviderName": "Google",
+   "geoTaxonomy": {
+    "type": "REGIONAL",
+    "regions": [
+     "europe-west1"
+    ]
+   }
+  },
+  {
+   "name": "services/152E-C115-5142/skus/4856-B847-F1EB",
+   "skuId": "4856-B847-F1EB",
+   "description": "Services CPU (Request-based billing)",
+   "category": {
+    "serviceDisplayName": "Cloud Run",
+    "resourceFamily": "ApplicationServices",
+    "resourceGroup": "Compute",
+    "usageType": "OnDemand"
+   },
+   "serviceRegions": [
+    "asia-east1",
+    "asia-northeast1",
+    "asia-northeast2",
+    "europe-north1",
+    "europe-north2",
+    "europe-southwest1",
+    "europe-west1",
+    "europe-west4",
+    "europe-west8",
+    "europe-west9",
+    "me-west1",
+    "northamerica-south1",
+    "us-central1",
+    "us-east1",
+    "us-east4",
+    "us-east5",
+    "us-east7",
+    "us-south1",
+    "us-west1",
+    "us-west8",
+    "asia-south1",
+    "asia-southeast3",
+    "africa-south1",
+    "asia-southeast4"
+   ],
+   "pricingInfo": [
+    {
+     "summary": "",
+     "pricingExpression": {
+      "usageUnit": "s",
+      "displayQuantity": 1,
+      "tieredRates": [
+       {
+        "startUsageAmount": 0,
+        "unitPrice": {
+         "currencyCode": "USD",
+         "units": "0",
+         "nanos": 24000
+        }
+       }
+      ],
+      "usageUnitDescription": "second",
+      "baseUnit": "s",
+      "baseUnitDescription": "second",
+      "baseUnitConversionFactor": 1
+     },
+     "currencyConversionRate": 1,
+     "effectiveTime": "2026-09-26T07:00:00Z"
+    }
+   ],
+   "serviceProviderName": "Google",
+   "geoTaxonomy": {
+    "type": "GLOBAL",
+    "regions": []
+   }
+  }
+ ]
+}

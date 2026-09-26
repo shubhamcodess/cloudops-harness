@@ -1,0 +1,11 @@
+services:
+  web:
+    build: ./services/web
+    ports: ["3000:3000"]
+  orders:
+    build: ./services/orders
+    ports: ["3001:3001"]
+  db:
+    image: postgres:16
+  queue:
+    image: rabbitmq:3

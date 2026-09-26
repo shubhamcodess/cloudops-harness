@@ -1,0 +1,66 @@
+{
+  "source": {
+    "kind": "path",
+    "ref": "npm-package"
+  },
+  "workloadType": "package",
+  "languages": [
+    "typescript"
+  ],
+  "packageManager": "npm",
+  "services": [
+    {
+      "name": "tiny-slug",
+      "path": ".",
+      "language": "typescript",
+      "kind": "package",
+      "buildCmd": "npm run build",
+      "hasDockerfile": false
+    }
+  ],
+  "dockerable": false,
+  "hasDockerfile": false,
+  "hasCompose": false,
+  "hasHelm": false,
+  "hasTerraform": false,
+  "hasK8sManifests": false,
+  "ci": "none",
+  "datastores": [],
+  "ai": {
+    "isAi": false,
+    "frameworks": [],
+    "modelProviders": [],
+    "vectorDbs": [],
+    "mcpServer": false,
+    "mcpClient": false,
+    "needsSandbox": false
+  },
+  "envVars": [],
+  "pii": [],
+  "evidence": [
+    {
+      "rule": "language",
+      "file": "src/index.ts",
+      "detail": "typescript"
+    },
+    {
+      "rule": "manifest",
+      "file": "package.json"
+    },
+    {
+      "rule": "package-manager",
+      "file": "package.json",
+      "detail": "npm"
+    },
+    {
+      "rule": "service",
+      "file": "package.json",
+      "detail": "tiny-slug:package"
+    },
+    {
+      "rule": "workload:single-kind",
+      "file": ".",
+      "detail": "package"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "source": {
+    "kind": "path",
+    "ref": "java-monolith"
+  },
+  "workloadType": "monolith",
+  "languages": [
+    "java"
+  ],
+  "packageManager": "maven",
+  "services": [
+    {
+      "name": "app",
+      "path": ".",
+      "language": "java",
+      "kind": "service",
+      "port": 8080,
+      "buildCmd": "mvn -B package",
+      "startCmd": "java -jar target/*.jar",
+      "hasDockerfile": false
+    }
+  ],
+  "dockerable": true,
+  "hasDockerfile": false,
+  "hasCompose": false,
+  "hasHelm": false,
+  "hasTerraform": false,
+  "hasK8sManifests": false,
+  "ci": "none",
+  "datastores": [
+    "postgres"
+  ],
+  "ai": {
+    "isAi": false,
+    "frameworks": [],
+    "modelProviders": [],
+    "vectorDbs": [],
+    "mcpServer": false,
+    "mcpClient": false,
+    "needsSandbox": false
+  },
+  "envVars": [
+    {
+      "name": "DATABASE_URL",
+      "classification": "secret",
+      "file": "src/main/resources/application.properties"
+    }
+  ],
+  "pii": [],
+  "evidence": [
+    {
+      "rule": "datastore-dep",
+      "file": "pom.xml",
+      "detail": "postgres:postgresql"
+    },
+    {
+      "rule": "env-var",
+      "file": "src/main/resources/application.properties",
+      "detail": "DATABASE_URL:secret"
+    },
+    {
+      "rule": "language",
+      "file": "src/main/java/com/example/App.java",
+      "detail": "java"
+    },
+    {
+      "rule": "manifest",
+      "file": "pom.xml"
+    },
+    {
+      "rule": "package-manager",
+      "file": "pom.xml",
+      "detail": "maven"
+    },
+    {
+      "rule": "service",
+      "file": "pom.xml",
+      "detail": "app:service"
+    },
+    {
+      "rule": "workload:monolith-framework",
+      "detail": "monolith"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "source": {
+    "kind": "path",
+    "ref": "python-api"
+  },
+  "workloadType": "service",
+  "languages": [
+    "python"
+  ],
+  "packageManager": "pip",
+  "services": [
+    {
+      "name": "app",
+      "path": ".",
+      "language": "python",
+      "kind": "service",
+      "port": 8000,
+      "buildCmd": "pip install -r requirements.txt",
+      "startCmd": "uvicorn main:app",
+      "hasDockerfile": true
+    }
+  ],
+  "dockerable": true,
+  "hasDockerfile": true,
+  "hasCompose": false,
+  "hasHelm": false,
+  "hasTerraform": false,
+  "hasK8sManifests": false,
+  "ci": "none",
+  "datastores": [
+    "redis"
+  ],
+  "ai": {
+    "isAi": false,
+    "frameworks": [],
+    "modelProviders": [],
+    "vectorDbs": [],
+    "mcpServer": false,
+    "mcpClient": false,
+    "needsSandbox": false
+  },
+  "envVars": [
+    {
+      "name": "REDIS_URL",
+      "classification": "secret",
+      "file": "main.py"
+    }
+  ],
+  "pii": [],
+  "evidence": [
+    {
+      "rule": "datastore-dep",
+      "file": "requirements.txt",
+      "detail": "redis:redis"
+    },
+    {
+      "rule": "datastore-env",
+      "file": "main.py",
+      "detail": "redis:REDIS_URL"
+    },
+    {
+      "rule": "dockerfile",
+      "file": "Dockerfile"
+    },
+    {
+      "rule": "env-var",
+      "file": "main.py",
+      "detail": "REDIS_URL:secret"
+    },
+    {
+      "rule": "language",
+      "file": "main.py",
+      "detail": "python"
+    },
+    {
+      "rule": "manifest",
+      "file": "requirements.txt"
+    },
+    {
+      "rule": "package-manager",
+      "file": "requirements.txt",
+      "detail": "pip"
+    },
+    {
+      "rule": "service",
+      "file": "requirements.txt",
+      "detail": "app:service"
+    },
+    {
+      "rule": "workload:single-service",
+      "detail": "service"
+    }
+  ]
+}

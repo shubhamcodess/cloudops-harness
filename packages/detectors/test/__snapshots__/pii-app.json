@@ -1,0 +1,185 @@
+{
+  "source": {
+    "kind": "path",
+    "ref": "pii-app"
+  },
+  "workloadType": "service",
+  "languages": [
+    "javascript"
+  ],
+  "packageManager": "npm",
+  "services": [
+    {
+      "name": "pii-app",
+      "path": ".",
+      "language": "javascript",
+      "kind": "service",
+      "port": 8080,
+      "startCmd": "npm start",
+      "hasDockerfile": false
+    }
+  ],
+  "dockerable": true,
+  "hasDockerfile": false,
+  "hasCompose": false,
+  "hasHelm": false,
+  "hasTerraform": false,
+  "hasK8sManifests": false,
+  "ci": "none",
+  "datastores": [
+    "mongodb"
+  ],
+  "ai": {
+    "isAi": false,
+    "frameworks": [],
+    "modelProviders": [],
+    "vectorDbs": [],
+    "mcpServer": false,
+    "mcpClient": false,
+    "needsSandbox": false
+  },
+  "envVars": [
+    {
+      "name": "PORT",
+      "classification": "config",
+      "file": "server.js"
+    }
+  ],
+  "pii": [
+    {
+      "signal": "analytics-sdk:mixpanel",
+      "file": "package.json"
+    },
+    {
+      "signal": "analytics-sdk:segment",
+      "file": "package.json"
+    },
+    {
+      "signal": "cookies",
+      "file": "server.js"
+    },
+    {
+      "signal": "date-of-birth",
+      "file": "schema.sql"
+    },
+    {
+      "signal": "email",
+      "file": "schema.sql"
+    },
+    {
+      "signal": "email",
+      "file": "server.js"
+    },
+    {
+      "signal": "ip-address",
+      "file": "schema.sql"
+    },
+    {
+      "signal": "ip-address",
+      "file": "server.js"
+    },
+    {
+      "signal": "phone",
+      "file": "schema.sql"
+    },
+    {
+      "signal": "phone",
+      "file": "server.js"
+    }
+  ],
+  "evidence": [
+    {
+      "rule": "datastore-dep",
+      "file": "package.json",
+      "detail": "mongodb:mongodb"
+    },
+    {
+      "rule": "env-var",
+      "file": "server.js",
+      "detail": "PORT:config"
+    },
+    {
+      "rule": "language",
+      "file": "server.js",
+      "detail": "javascript"
+    },
+    {
+      "rule": "manifest",
+      "file": "package.json"
+    },
+    {
+      "rule": "package-manager",
+      "file": "package.json",
+      "detail": "npm"
+    },
+    {
+      "rule": "pii-signal",
+      "file": "package.json",
+      "detail": "analytics-sdk:mixpanel"
+    },
+    {
+      "rule": "pii-signal",
+      "file": "package.json",
+      "detail": "analytics-sdk:segment"
+    },
+    {
+      "rule": "pii-signal",
+      "file": "schema.sql",
+      "detail": "date-of-birth"
+    },
+    {
+      "rule": "pii-signal",
+      "file": "schema.sql",
+      "detail": "email"
+    },
+    {
+      "rule": "pii-signal",
+      "file": "schema.sql",
+      "detail": "ip-address"
+    },
+    {
+      "rule": "pii-signal",
+      "file": "schema.sql",
+      "detail": "phone"
+    },
+    {
+      "rule": "pii-signal",
+      "file": "server.js",
+      "detail": "cookies"
+    },
+    {
+      "rule": "pii-signal",
+      "file": "server.js",
+      "detail": "email"
+    },
+    {
+      "rule": "pii-signal",
+      "file": "server.js",
+      "detail": "ip-address"
+    },
+    {
+      "rule": "pii-signal",
+      "file": "server.js",
+      "detail": "phone"
+    },
+    {
+      "rule": "secret-in-code",
+      "file": "server.js",
+      "detail": "aws-access-key"
+    },
+    {
+      "rule": "secret-in-code",
+      "file": "server.js",
+      "detail": "stripe-key"
+    },
+    {
+      "rule": "service",
+      "file": "package.json",
+      "detail": "pii-app:service"
+    },
+    {
+      "rule": "workload:single-service",
+      "detail": "service"
+    }
+  ]
+}

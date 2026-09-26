@@ -1,0 +1,1 @@
+{ "name": "worker", "version": "1.0.0", "scripts": { "start": "node index.js" }, "dependencies": { "amqplib": "^0.10.4" } }

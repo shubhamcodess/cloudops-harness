@@ -1,0 +1,98 @@
+{
+  "source": {
+    "kind": "path",
+    "ref": "rag-app"
+  },
+  "workloadType": "rag-app",
+  "languages": [
+    "python"
+  ],
+  "packageManager": "pip",
+  "services": [
+    {
+      "name": "app",
+      "path": ".",
+      "language": "python",
+      "kind": "rag-app",
+      "buildCmd": "pip install -r requirements.txt",
+      "startCmd": "uvicorn app:app",
+      "hasDockerfile": false
+    }
+  ],
+  "dockerable": true,
+  "hasDockerfile": false,
+  "hasCompose": false,
+  "hasHelm": false,
+  "hasTerraform": false,
+  "hasK8sManifests": false,
+  "ci": "none",
+  "datastores": [
+    "postgres"
+  ],
+  "ai": {
+    "isAi": true,
+    "frameworks": [],
+    "modelProviders": [
+      "openai"
+    ],
+    "vectorDbs": [
+      "chromadb",
+      "pgvector"
+    ],
+    "mcpServer": false,
+    "mcpClient": false,
+    "needsSandbox": false
+  },
+  "envVars": [
+    {
+      "name": "OPENAI_API_KEY",
+      "classification": "secret",
+      "file": "app.py"
+    }
+  ],
+  "pii": [],
+  "evidence": [
+    {
+      "rule": "ai-detected",
+      "detail": "openai,chromadb,pgvector"
+    },
+    {
+      "rule": "datastore-dep",
+      "file": "requirements.txt",
+      "detail": "postgres:pgvector"
+    },
+    {
+      "rule": "datastore-dep",
+      "file": "requirements.txt",
+      "detail": "postgres:psycopg"
+    },
+    {
+      "rule": "env-var",
+      "file": "app.py",
+      "detail": "OPENAI_API_KEY:secret"
+    },
+    {
+      "rule": "language",
+      "file": "app.py",
+      "detail": "python"
+    },
+    {
+      "rule": "manifest",
+      "file": "requirements.txt"
+    },
+    {
+      "rule": "package-manager",
+      "file": "requirements.txt",
+      "detail": "pip"
+    },
+    {
+      "rule": "service",
+      "file": "requirements.txt",
+      "detail": "app:rag-app"
+    },
+    {
+      "rule": "workload:vector-db+llm",
+      "detail": "rag-app"
+    }
+  ]
+}

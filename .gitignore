@@ -15,3 +15,5 @@ __pycache__/
 graphify-out/
 .DS_Store
 *.log
+.cache/
+.data/

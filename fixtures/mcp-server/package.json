@@ -1,0 +1,1 @@
+{ "name": "notes-mcp", "version": "0.1.0", "type": "module", "bin": { "notes-mcp": "dist/index.js" }, "scripts": { "build": "tsc", "start": "node dist/index.js" }, "dependencies": { "@modelcontextprotocol/sdk": "^1.0.0", "zod": "^3.23.0" } }

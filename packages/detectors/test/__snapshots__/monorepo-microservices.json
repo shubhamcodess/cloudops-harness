@@ -1,0 +1,166 @@
+{
+  "source": {
+    "kind": "path",
+    "ref": "monorepo-microservices"
+  },
+  "workloadType": "microservices",
+  "languages": [
+    "javascript",
+    "typescript"
+  ],
+  "packageManager": "pnpm",
+  "services": [
+    {
+      "name": "orders",
+      "path": "services/orders",
+      "language": "typescript",
+      "kind": "service",
+      "port": 3001,
+      "buildCmd": "pnpm run build",
+      "startCmd": "pnpm start",
+      "hasDockerfile": true
+    },
+    {
+      "name": "web",
+      "path": "services/web",
+      "language": "typescript",
+      "kind": "service",
+      "port": 3000,
+      "buildCmd": "pnpm run build",
+      "startCmd": "pnpm start",
+      "hasDockerfile": true
+    },
+    {
+      "name": "worker",
+      "path": "services/worker",
+      "language": "javascript",
+      "kind": "worker",
+      "startCmd": "pnpm start",
+      "hasDockerfile": false
+    }
+  ],
+  "dockerable": true,
+  "hasDockerfile": true,
+  "hasCompose": true,
+  "hasHelm": false,
+  "hasTerraform": false,
+  "hasK8sManifests": false,
+  "ci": "none",
+  "datastores": [
+    "postgres",
+    "rabbitmq"
+  ],
+  "ai": {
+    "isAi": false,
+    "frameworks": [],
+    "modelProviders": [],
+    "vectorDbs": [],
+    "mcpServer": false,
+    "mcpClient": false,
+    "needsSandbox": false
+  },
+  "envVars": [
+    {
+      "name": "AMQP_URL",
+      "classification": "secret",
+      "file": "services/worker/index.js"
+    },
+    {
+      "name": "PORT",
+      "classification": "config",
+      "file": "services/orders/src/index.ts"
+    }
+  ],
+  "pii": [],
+  "evidence": [
+    {
+      "rule": "compose",
+      "file": "docker-compose.yml"
+    },
+    {
+      "rule": "datastore-compose",
+      "file": "docker-compose.yml",
+      "detail": "postgres:postgres:16"
+    },
+    {
+      "rule": "datastore-compose",
+      "file": "docker-compose.yml",
+      "detail": "rabbitmq:rabbitmq:3"
+    },
+    {
+      "rule": "datastore-dep",
+      "file": "services/worker/package.json",
+      "detail": "rabbitmq:amqplib"
+    },
+    {
+      "rule": "datastore-env",
+      "file": "services/worker/index.js",
+      "detail": "rabbitmq:AMQP_URL"
+    },
+    {
+      "rule": "dockerfile",
+      "file": "services/orders/Dockerfile"
+    },
+    {
+      "rule": "env-var",
+      "file": "services/orders/src/index.ts",
+      "detail": "PORT:config"
+    },
+    {
+      "rule": "env-var",
+      "file": "services/worker/index.js",
+      "detail": "AMQP_URL:secret"
+    },
+    {
+      "rule": "language",
+      "file": "services/orders/src/index.ts",
+      "detail": "typescript"
+    },
+    {
+      "rule": "language",
+      "file": "services/worker/index.js",
+      "detail": "javascript"
+    },
+    {
+      "rule": "manifest",
+      "file": "package.json"
+    },
+    {
+      "rule": "manifest",
+      "file": "services/orders/package.json"
+    },
+    {
+      "rule": "manifest",
+      "file": "services/web/package.json"
+    },
+    {
+      "rule": "manifest",
+      "file": "services/worker/package.json"
+    },
+    {
+      "rule": "package-manager",
+      "file": "pnpm-workspace.yaml",
+      "detail": "pnpm"
+    },
+    {
+      "rule": "service",
+      "file": "services/orders/",
+      "detail": "orders:service"
+    },
+    {
+      "rule": "service",
+      "file": "services/web/",
+      "detail": "web:service"
+    },
+    {
+      "rule": "service",
+      "file": "services/worker/",
+      "detail": "worker:worker"
+    },
+    {
+      "rule": "workload:multiple-services",
+      "file": "pnpm-workspace.yaml",
+      "detail": "microservices"
+    }
+  ]
+}

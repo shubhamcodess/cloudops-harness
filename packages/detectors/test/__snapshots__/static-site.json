@@ -1,0 +1,66 @@
+{
+  "source": {
+    "kind": "path",
+    "ref": "static-site"
+  },
+  "workloadType": "static-site",
+  "languages": [
+    "javascript"
+  ],
+  "packageManager": "npm",
+  "services": [
+    {
+      "name": "static-site",
+      "path": ".",
+      "language": "javascript",
+      "kind": "static-site",
+      "buildCmd": "npm run build",
+      "hasDockerfile": false
+    }
+  ],
+  "dockerable": true,
+  "hasDockerfile": false,
+  "hasCompose": false,
+  "hasHelm": false,
+  "hasTerraform": false,
+  "hasK8sManifests": false,
+  "ci": "none",
+  "datastores": [],
+  "ai": {
+    "isAi": false,
+    "frameworks": [],
+    "modelProviders": [],
+    "vectorDbs": [],
+    "mcpServer": false,
+    "mcpClient": false,
+    "needsSandbox": false
+  },
+  "envVars": [],
+  "pii": [],
+  "evidence": [
+    {
+      "rule": "language",
+      "file": "src/main.js",
+      "detail": "javascript"
+    },
+    {
+      "rule": "manifest",
+      "file": "package.json"
+    },
+    {
+      "rule": "package-manager",
+      "file": "package.json",
+      "detail": "npm"
+    },
+    {
+      "rule": "service",
+      "file": "package.json",
+      "detail": "static-site:static-site"
+    },
+    {
+      "rule": "workload:single-kind",
+      "file": ".",
+      "detail": "static-site"
+    }
+  ]
+}

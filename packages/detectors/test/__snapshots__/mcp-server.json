@@ -1,0 +1,73 @@
+{
+  "source": {
+    "kind": "path",
+    "ref": "mcp-server"
+  },
+  "workloadType": "mcp-server",
+  "languages": [
+    "typescript"
+  ],
+  "packageManager": "npm",
+  "services": [
+    {
+      "name": "notes-mcp",
+      "path": ".",
+      "language": "typescript",
+      "kind": "mcp-server",
+      "buildCmd": "npm run build",
+      "startCmd": "npm start",
+      "hasDockerfile": false
+    }
+  ],
+  "dockerable": true,
+  "hasDockerfile": false,
+  "hasCompose": false,
+  "hasHelm": false,
+  "hasTerraform": false,
+  "hasK8sManifests": false,
+  "ci": "none",
+  "datastores": [],
+  "ai": {
+    "isAi": true,
+    "frameworks": [],
+    "modelProviders": [],
+    "vectorDbs": [],
+    "mcpServer": true,
+    "mcpClient": false,
+    "needsSandbox": false
+  },
+  "envVars": [],
+  "pii": [],
+  "evidence": [
+    {
+      "rule": "ai-detected"
+    },
+    {
+      "rule": "language",
+      "file": "src/index.ts",
+      "detail": "typescript"
+    },
+    {
+      "rule": "manifest",
+      "file": "package.json"
+    },
+    {
+      "rule": "mcp-server",
+      "file": "src/index.ts"
+    },
+    {
+      "rule": "package-manager",
+      "file": "package.json",
+      "detail": "npm"
+    },
+    {
+      "rule": "service",
+      "file": "package.json",
+      "detail": "notes-mcp:mcp-server"
+    },
+    {
+      "rule": "workload:mcp-server",
+      "detail": "mcp-server"
+    }
+  ]
+}
