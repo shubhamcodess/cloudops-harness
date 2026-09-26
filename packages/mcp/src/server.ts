@@ -68,6 +68,12 @@ export function buildMcpServer(store: RunStore, deps: ToolDeps = {}): McpServer 
       annotations: { readOnlyHint: false, destructiveHint: false } },
     wrap(tools.price_and_decide));
 
+  server.registerTool("select_candidate",
+    { description: "Lock in a specific candidate (by id from price_and_decide's table) as the chosen deployment, overriding the automatic pick. Required when no candidate met every constraint (chosen was empty) and the user accepts one anyway; also usable to pick a different candidate than the auto-selected cheapest one.",
+      inputSchema: { runId: z.string(), candidateId: z.string() },
+      annotations: { readOnlyHint: false, destructiveHint: false } },
+    wrap((a: { runId: string; candidateId: string }) => tools.select_candidate(a)));
+
   server.registerTool("explain_decision",
     { description: "Cost line items with SKUs + rationale + compliance report.",
       inputSchema: { runId: z.string(), candidateId: z.string().optional() },

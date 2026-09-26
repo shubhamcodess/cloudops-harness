@@ -103,6 +103,55 @@ describe("mcp tools: full run lifecycle", () => {
   });
 });
 
+describe("mcp tools: select_candidate (budget-infeasible override)", () => {
+  it("price_and_decide reports infeasible, and generate_artifacts is stuck until select_candidate runs", async () => {
+    const store = freshStore();
+    const tools = makeTools(store, { priceBook: fakeBook() });
+    const { runId } = await tools.start_run({ source: NODE_API });
+    await tools.analyze_repo({ runId });
+    tools.submit_answers({ runId, answers: { ...REQUIRED_ANSWERS, monthlyBudgetUsd: 0.01 } });
+
+    const priced = await tools.price_and_decide({ runId });
+    expect(priced.feasible).toBe(false);
+    expect(priced.chosen).toBeUndefined();
+    expect(priced.candidates.length).toBeGreaterThan(0);
+    expect(store.get(runId).stage).toBe("decided");
+
+    // Exactly the stuck state from the real transcript: nothing chosen, generate_artifacts refuses.
+    expect(() => tools.generate_artifacts({ runId })).toThrow(/no chosen candidate/);
+
+    const pickId = priced.candidates[0]!.id;
+    const picked = tools.select_candidate({ runId, candidateId: pickId });
+    expect(picked.chosen).toBe(pickId);
+    expect(picked.meets.budget).toBe(false);
+
+    const generated = tools.generate_artifacts({ runId });
+    expect(generated.fileCount).toBeGreaterThan(0);
+
+    const ledger = tools.get_ledger({ runId });
+    expect(ledger.verify.ok).toBe(true);
+    const overrideEntry = ledger.entries.find((e) => e.rule === "select_candidate");
+    expect(overrideEntry?.engine).toBe("human");
+  });
+
+  it("rejects an unknown candidate id", async () => {
+    const store = freshStore();
+    const tools = makeTools(store, { priceBook: fakeBook() });
+    const { runId } = await tools.start_run({ source: NODE_API });
+    await tools.analyze_repo({ runId });
+    tools.submit_answers({ runId, answers: REQUIRED_ANSWERS });
+    await tools.price_and_decide({ runId });
+    expect(() => tools.select_candidate({ runId, candidateId: "not-a-real-candidate" })).toThrow(/candidate not found/);
+  });
+
+  it("rejects select_candidate before pricing has run", async () => {
+    const store = freshStore();
+    const tools = makeTools(store, { priceBook: fakeBook() });
+    const { runId } = await tools.start_run({ source: NODE_API });
+    expect(() => tools.select_candidate({ runId, candidateId: "x" })).toThrow(/needs stage>=decided/);
+  });
+});
+
 describe("mcp tools: safety guards", () => {
   it("rejects a non-https clone source that is not a local path", async () => {
     const store = freshStore();

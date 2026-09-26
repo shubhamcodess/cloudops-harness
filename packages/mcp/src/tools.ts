@@ -115,11 +115,31 @@ export function makeTools(store: RunStore, deps: ToolDeps = {}) {
         .map((c) => ({ id: c.id, monthlyUsd: round(c.monthlyUsd), meets: c.meets }));
       const savings = decision.savingsVsExistingUsd;
       return {
-        chosen: decision.chosenId,
+        chosen: decision.chosenId || undefined,
+        feasible: decision.chosenId !== "",
         candidates: table,
         rejected: decision.rejected.length,
         savingsUsd: savings !== undefined ? round(savings) : undefined,
       };
+    },
+
+    select_candidate(a: IdArgs & { candidateId: string }) {
+      const rec = store.get(a.runId);
+      store.requireStage(rec, "decided", "select_candidate");
+      const candidate = rec.cost!.candidates.find((c) => c.id === a.candidateId);
+      if (!candidate) throw new Error(`candidate not found: ${a.candidateId}`);
+      const misses = (Object.entries(candidate.meets) as Array<[string, boolean]>)
+        .filter(([, ok]) => !ok).map(([k]) => k);
+      rec.chosenCandidate = candidate;
+      rec.decision!.chosenId = candidate.id;
+      rec.decision!.rationale = [
+        ...rec.decision!.rationale,
+        `Human override: selected ${candidate.id} at $${round(candidate.monthlyUsd)}/mo` +
+          (misses.length ? ` (misses: ${misses.join(", ")})` : ""),
+      ];
+      store.appendLedger(rec, "decided", "select_candidate", { candidateId: a.candidateId }, { monthlyUsd: candidate.monthlyUsd, misses }, "human");
+      store.save(rec);
+      return { chosen: candidate.id, monthlyUsd: round(candidate.monthlyUsd), meets: candidate.meets };
     },
 
     explain_decision(a: IdArgs & { candidateId?: string }) {
