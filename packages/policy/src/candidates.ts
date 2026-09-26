@@ -451,7 +451,7 @@ function finalizeCandidate(arch: Architecture, r: RegionInfo, req: Requirements,
       if (r.provider === "gcp") specs.push(...specsCloudSqlPostgres());
       else if (r.provider === "aws") specs.push(...specsRdsPostgres());
       else specs.push({
-        label: `Managed ${ds}`, category: "db-instance-hour", service: r.provider === "gcp" ? "cloudsql" : "azuresql",
+        label: `Managed ${ds}`, category: "db-instance-hour", service: "azuresql",
         match: [new RegExp(ds, "i")], quantity: HOURS_PER_MONTH, unitLabel: "hour", fallbackUnitPrice: 0.05,
       });
     } else if (ds === "redis") {

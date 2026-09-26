@@ -6,7 +6,12 @@ if (!provider || !region || !["aws", "gcp", "azure"].includes(provider)) {
   console.error("usage: cli.ts <aws|gcp|azure> <region> [match] [--service=a,b] [--refresh]");
   process.exit(1);
 }
-const flags = new Map(rest.filter((a) => a.startsWith("--")).map((a) => a.slice(2).split("=") as [string, string?]));
+const flags = new Map<string, string | undefined>(
+  rest.filter((a) => a.startsWith("--")).map((a): [string, string | undefined] => {
+    const [k = "", v] = a.slice(2).split("=");
+    return [k, v];
+  }),
+);
 const services = flags.get("service")?.split(",");
 const p = provider as Provider;
 if (services?.some((s) => !servicesFor(p).includes(s))) {
