@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { mkdirSync, statSync } from "node:fs";
+import { mkdirSync, readdirSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
 const MAX_BYTES = 200 * 1024 * 1024;
@@ -30,7 +30,6 @@ export async function shallowClone(url: string, dest: string): Promise<void> {
 }
 
 function dirBytes(dir: string): number {
-  const { readdirSync } = require("node:fs") as typeof import("node:fs");
   let total = 0;
   for (const name of readdirSync(dir, { withFileTypes: true })) {
     const p = resolve(dir, name.name);
