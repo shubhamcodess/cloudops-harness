@@ -201,13 +201,13 @@ importers:
 
   packages/iac-gen: {}
 
+  packages/mcp: {}
+
   packages/policy: {}
 
   packages/pricing: {}
 
   packages/sop: {}
-
-  packages/ui: {}
 
   packages/verifier: {}
 
