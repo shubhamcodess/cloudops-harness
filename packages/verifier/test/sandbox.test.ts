@@ -4,7 +4,9 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { DockerSandbox } from "../src/sandbox";
 
-describe("DockerSandbox", () => {
+const docker = await import("node:child_process").then((m) => m.spawnSync("docker", ["info"]).status === 0);
+
+describe.skipIf(!docker)("DockerSandbox", () => {
   it("runs in an isolated container without network by default", async () => {
     const dir = mkdtempSync(join(tmpdir(), "smc-"));
     writeFileSync(join(dir, "a.txt"), "hello");
