@@ -1,4 +1,4 @@
-# Handover: save-my-cloud (hackathon build, continue in Claude Code cloud session)
+# Handover: cloudops-harness (hackathon build, continue in Claude Code cloud session)
 
 Written 2026-09-26 ~15:55 IST. Build clock started 15:27, HARD STOP 17:57 IST (2.5h window), then README/video/GitHub. Read this file fully, then `.handoff/WORKFLOW.md`, then `.handoff/PROGRESS.md`. This folder is private working material: DELETE `.handoff/` before the public release.
 
@@ -9,7 +9,7 @@ Written 2026-09-26 ~15:55 IST. Build clock started 15:27, HARD STOP 17:57 IST (2
 4. Start TrueForge: `./scripts/start-forge.sh` (needs `OUTBOUND_URL_ALLOWED_HOSTS='["localhost","127.0.0.1"]'` for local MCP), then `./scripts/setup-models.sh`. UI at http://localhost:8790. No Ollama in cloud: use OpenRouter/OpenAI providers only.
 
 ## 1. Mission (one line)
-save-my-cloud: an agent crew on TrueForge that takes a repo, understands the workload (incl. AI agents/MCP servers), interviews only for missing facts, prices real options on AWS/GCP (live SKUs), decides deterministically (GDPR/residency aware), generates Dockerfile/Terraform/Helm/CI/secrets plan/SOP handbook, PROVES it (container sandbox + Floci emulator apply), and hands over via human-approved delivery. Hook: proof-carrying deploy plans + deterministic decisions (rules > scored matrix > constrained LLM > human; hash-chained ledger). Real savings shown vs baseline.
+cloudops-harness: an agent crew on TrueForge that takes a repo, understands the workload (incl. AI agents/MCP servers), interviews only for missing facts, prices real options on AWS/GCP (live SKUs), decides deterministically (GDPR/residency aware), generates Dockerfile/Terraform/Helm/CI/secrets plan/SOP handbook, PROVES it (container sandbox + Floci emulator apply), and hands over via human-approved delivery. Hook: proof-carrying deploy plans + deterministic decisions (rules > scored matrix > constrained LLM > human; hash-chained ledger). Real savings shown vs baseline.
 Hackathon rules (must hold): runs on TrueForge; reaches real systems (GitHub, price APIs, cloud inventory); generated code only in sandbox; human approval before irreversible actions; README discloses AI tools; no keys in repo/demo; free/open-source tools only; team must explain the architecture.
 
 ## 2. Working style (from the user; keep)
@@ -31,7 +31,7 @@ packages/ (alias `@smc/<name>` in tsconfig.base.json + vitest.config.ts):
 - iac-gen: `generateArtifacts` -> Dockerfile, Terraform (aws-ecs-fargate, aws-lambda, aws-s3-cloudfront, gcp-cloud-run, gcp-gcs-cdn, RDS/Cloud SQL), Helm chart (+ExternalSecret, NetworkPolicy, HPA, PDB), GitHub Actions (OIDC), OPA rego policies, floci override. 12 tests pass (tofu validate on 5 archs, helm lint/template, conftest).
 - sop: `buildSecretsManifest`, `mockSecretEnv`, `redact`/`assertNoSecrets`, `generateHandbook` (DEPLOYMENT_HANDBOOK.md + AGENT_RUNBOOK.md). 12 tests pass.
 - verifier: `DockerSandbox` (throwaway containers, no network by default, cap-drop) and `verifyArtifacts` (tofu validate, helm lint/template, conftest on rendered chart, gitleaks, optional Floci apply). Proven: full AWS ECS Fargate stack applied to Floci in ~89s. Gitleaks caught a hardcoded RDS password, fixed (manage_master_user_password, deletion protection).
-- agents: `CREW_INSTRUCTIONS` and `register.ts` (registers MCP server `save-my-cloud` at http://localhost:8830/mcp and agent `save-my-cloud` with `require_approval_for_tools:["deliver"]`, dynamic sub-agents, ask_user_questions, sandbox if DAYTONA_API_KEY). WRITTEN, NOT YET RUN/TESTED.
+- agents: `CREW_INSTRUCTIONS` and `register.ts` (registers MCP server `cloudops-harness` at http://localhost:8830/mcp and agent `cloudops-harness` with `require_approval_for_tools:["deliver"]`, dynamic sub-agents, ask_user_questions, sandbox if DAYTONA_API_KEY). WRITTEN, NOT YET RUN/TESTED.
 - mcp (PARTIAL), ui (cancelled, use TrueForge generative UI): see section 4.
 Decisions worth remembering (for ARCHITECT.md): LLM only passes small args/ids, big JSON stays server-side by runId (token efficient + deterministic); TrueForge MCP tool approval is native via `require_approval_for_tools`; sandbox provider on TrueForge is Daytona only (key pending) so we ship a Docker sandbox backend as fallback and for local CI; Floci is the free rehearsal environment; OpenTofu chosen over Terraform (open source); Jev (TypeSafe) is hosted/paid-early-access so DecisionEngine has pluggable backends and Jev is optional, not required; Firecrawl web enrichment is stretch (keyless free tier exists; fallback SearXNG+Crawl4AI).
 

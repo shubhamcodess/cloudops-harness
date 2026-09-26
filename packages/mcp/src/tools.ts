@@ -195,11 +195,11 @@ export function makeTools(store: RunStore, deps: ToolDeps = {}) {
         cpSync(outDir, target, { recursive: true });
       } else if (a.mode === "git-branch") {
         if (!existsSync(join(target, ".git"))) throw new Error("target is not a git repo");
-        const branch = `save-my-cloud/${rec.appName}`;
+        const branch = `cloudops-harness/${rec.appName}`;
         run("git", ["-C", target, "checkout", "-B", branch]);
         cpSync(outDir, target, { recursive: true });
         run("git", ["-C", target, "add", "."]);
-        run("git", ["-C", target, "commit", "-m", `save-my-cloud: ${rec.appName}`, "--allow-empty"]);
+        run("git", ["-C", target, "commit", "-m", `cloudops-harness: ${rec.appName}`, "--allow-empty"]);
       } else {
         throw new Error(`unknown mode: ${String(a.mode)}`);
       }

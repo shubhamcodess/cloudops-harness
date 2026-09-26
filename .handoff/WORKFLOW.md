@@ -47,7 +47,7 @@ After a pass is completed AND I've accepted it, spawn the `architect-scribe` sub
 - Never loop or batch-test on paid models. Set `max_output_tokens` low in tests.
 - Model selection is `LLM_PROVIDER` + `LLM_MODEL` env vars only (model id as in `config/providers.txt`; FQN passed to TrueForge = `<provider>/<slug(model)>`). App code must have a single resolver; no per-provider code. Add providers by editing `config/providers.txt`. Refuse paid providers unless explicitly enabled.
 
-## Project: save-my-cloud (see .local/docs/PLAN.md)
+## Project: cloudops-harness (see .local/docs/PLAN.md)
 - TypeScript, pnpm monorepo. Single checkout, dev directly on `main` (no worktrees or feature branches).
 - Build window is 2.5h total. Follow the timebox in PLAN.md; cut scope before quality. Remind me of time at each phase boundary.
 

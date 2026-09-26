@@ -1,4 +1,4 @@
-# save-my-cloud: hardened development plan
+# cloudops-harness: hardened development plan
 Version 1, 2026-09-26. Supersedes usecase-plan.md. Working title, may change.
 
 ## 0. TIMEBOX: 2.5h build window (overrides section 12)

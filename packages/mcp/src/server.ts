@@ -24,7 +24,7 @@ const CORS = {
 
 /** Build an McpServer with all tools registered against the given deps. */
 export function buildMcpServer(store: RunStore, deps: ToolDeps = {}): McpServer {
-  const server = new McpServer({ name: "save-my-cloud", version: "0.1.0" });
+  const server = new McpServer({ name: "cloudops-harness", version: "0.1.0" });
   const tools = makeTools(store, deps);
 
   const wrap = <A>(fn: (a: A) => unknown | Promise<unknown>) => async (args: A) => {

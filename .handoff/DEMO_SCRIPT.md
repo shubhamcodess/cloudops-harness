@@ -1,4 +1,4 @@
-# Demo script: save-my-cloud on TrueForge
+# Demo script: cloudops-harness on TrueForge
 
 Verified against this repo's actual detectors/planner/pricing code (not guessed).
 Uses `fixtures/node-api` because its detected profile is deterministic and I ran
@@ -12,8 +12,8 @@ instead of the one printed here.
 - TrueForge running (`./scripts/start-forge.sh`), UI at http://localhost:8790.
 - Providers registered (`./scripts/setup-models.sh` exited 0 for openrouter).
 - MCP server running (`./scripts/start-mcp.sh`), confirm `curl localhost:8830/healthz` → `{"ok":true}`.
-- Agent registered (`packages/agents/src/register.ts` printed "registered MCP server + agent save-my-cloud on ...").
-- Open the `save-my-cloud` agent in the TrueForge UI, start a new conversation.
+- Agent registered (`packages/agents/src/register.ts` printed "registered MCP server + agent cloudops-harness on ...").
+- Open the `cloudops-harness` agent in the TrueForge UI, start a new conversation.
 - Optional but recommended: install `opentofu`, `helm`, `conftest`, `gitleaks`, and have Docker running,
   so `verify_artifacts` actually executes checks instead of skipping them (see §5 caveat).
 
@@ -113,11 +113,11 @@ in CI this also runs a sandboxed emulator apply").
 
 Say: **"Deliver it to ./demo-output"** (or ask for a git branch instead).
 
-Because `save-my-cloud`'s MCP registration sets `require_approval_for_tools: ["deliver"]`,
+Because `cloudops-harness`'s MCP registration sets `require_approval_for_tools: ["deliver"]`,
 TrueForge should pause here and show an approval prompt before the tool actually runs — this
 is the hackathon's "human approval before irreversible actions" requirement, live. Approve it
 on screen. `deliver` then copies the generated files to `./demo-output` (or commits them to a
-`save-my-cloud/<appName>` branch if you asked for git mode) and returns `{ mode, target, at }`.
+`cloudops-harness/<appName>` branch if you asked for git mode) and returns `{ mode, target, at }`.
 
 ## 7. Output — what a finished run looks like
 

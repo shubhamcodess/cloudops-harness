@@ -17,18 +17,18 @@ async function call(method: string, path: string, body?: unknown) {
   return text ? JSON.parse(text) : {};
 }
 
-const mcp = { type: "remote", name: "save-my-cloud", url: MCP_URL, description: "Repo analysis, live cloud pricing, GDPR-aware decisions, IaC generation and verification" };
+const mcp = { type: "remote", name: "cloudops-harness", url: MCP_URL, description: "Repo analysis, live cloud pricing, GDPR-aware decisions, IaC generation and verification" };
 
 const spec = {
   model: { name: `${provider}/${slug(model)}` },
   instructions: CREW_INSTRUCTIONS,
-  mcp_servers: [{ name: "save-my-cloud", require_approval_for_tools: ["deliver"] }],
+  mcp_servers: [{ name: "cloudops-harness", require_approval_for_tools: ["deliver"] }],
   config: { iteration_limit: 60, dynamic_sub_agents: { enabled: true }, ask_user_questions: { enabled: true }, sandbox: { enabled: process.env.DAYTONA_API_KEY ? true : false, file_downloads: true } },
 };
 
 await call("PUT", "/settings/mcp-servers", { manifest: mcp });
-const body = { name: "save-my-cloud", description: "Cloud deployment crew: repo to priced, verified, compliant deploy plan", manifest: spec };
-const existing = (await call("GET", "/agents?agent_name=save-my-cloud")).data?.find((a: { name: string }) => a.name === "save-my-cloud");
+const body = { name: "cloudops-harness", description: "Cloud deployment crew: repo to priced, verified, compliant deploy plan", manifest: spec };
+const existing = (await call("GET", "/agents?agent_name=cloudops-harness")).data?.find((a: { name: string }) => a.name === "cloudops-harness");
 if (existing) await call("PUT", `/agents/${existing.id}`, { description: body.description, manifest: spec });
 else await call("POST", "/agents", body);
-console.log(`registered MCP server + agent save-my-cloud on ${spec.model.name}`);
+console.log(`registered MCP server + agent cloudops-harness on ${spec.model.name}`);
